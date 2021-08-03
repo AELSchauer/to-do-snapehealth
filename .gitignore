@@ -1,6 +1,4 @@
-.env
-knexfile.js
-migrations/
+*.env
 node_modules/
 package-lock.json
-seeds/
+seeds/000-seed-users.js
