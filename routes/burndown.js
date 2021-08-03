@@ -1,10 +1,22 @@
 module.exports = function (req, res, next) {
   Promise.all([
     client.query(
-      `SELECT TO_CHAR(created_at, 'MM/DD/YYYY HH24:MI:SS') AS created_at FROM tasks ORDER BY created_at ASC;`
+      `SELECT
+        TO_CHAR(created_at, 'MM/DD/YYYY HH24:MI:SS') AS created_at
+      FROM
+        tasks
+      ORDER BY
+        created_at ASC;`
     ),
     client.query(
-      `SELECT TO_CHAR(completed_at, 'MM/DD/YYYY HH24:MI:SS') AS completed_at FROM tasks WHERE is_complete = true ORDER BY completed_at ASC;`
+      `SELECT
+        TO_CHAR(completed_at, 'MM/DD/YYYY HH24:MI:SS') AS completed_at
+      FROM
+        tasks
+      WHERE
+        completed_at is not null
+      ORDER BY
+        completed_at ASC;`
     ),
   ]).then(([{ rows: createdResults }, { rows: completedResults }]) => {
     const changeCount = {};

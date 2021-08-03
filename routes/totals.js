@@ -1,7 +1,16 @@
 module.exports = function (req, res, next) {
   client
     .query(
-      `SELECT is_complete, COUNT(is_complete) FROM tasks GROUP BY is_complete ORDER BY COUNT(is_complete) DESC;`
+      `SELECT
+        CASE
+          WHEN completed_at is not null THEN true
+          ELSE false
+        END as is_complete,
+        COUNT(id)
+      FROM
+        tasks
+      GROUP BY
+        is_complete;`
     )
     .then(({ rows = [] }) => {
       res.setHeader("Content-Type", "application/json");
