@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/login", loginEndpoint);
 app.use("/tasks", authenticationWithError, tasksRouter);
-// app.use("/burndown", burndownEndpoint);
+app.use("/burndown", burndownEndpoint);
 app.use("/totals", totalsEndpoint);
 
 app.listen(port, () => {
