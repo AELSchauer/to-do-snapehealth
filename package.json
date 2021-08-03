@@ -3,11 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-dev": "nodemon server.js",
-    "start": "node server.js"
+    "start-dev": "NODE_ENV=development nodemon server.js",
+    "start": "node server.js",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex migrate:rollback",
+    "db:rollback:all": "knex migrate:rollback --all",
+    "db:reset": "npm run db:rollback:all && npm run db:migrate"
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "~4.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "knex": "^0.95.9",
+    "lorem-ipsum": "^2.0.3",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.12"
   }
 }
