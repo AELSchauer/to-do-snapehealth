@@ -36,7 +36,7 @@ module.exports = function (req, res, next) {
     )
     .then(({ rows: [record] = [] } = {}) => {
       res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(record));
+      res.status(201).send(JSON.stringify(record));
     })
     .catch((err) => {
       res.status(400).send({ error: err.message });
