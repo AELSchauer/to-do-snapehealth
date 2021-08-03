@@ -26,8 +26,10 @@ client.connect((err) => {
   }
 });
 
+const burndownEndpoint = require("./routes/burndown");
 const loginEndpoint = require("./routes/login");
 const tasksRouter = require("./routes/tasks/request-handler");
+const totalsEndpoint = require("./routes/totals");
 const { authenticationWithError } = require("./middleware/authentication");
 
 app.use(express.json());
@@ -35,8 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/login", loginEndpoint);
 app.use("/tasks", authenticationWithError, tasksRouter);
-app.use("/burndown", tasksRouter);
-app.use("/totals", tasksRouter);
+// app.use("/burndown", burndownEndpoint);
+app.use("/totals", totalsEndpoint);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
