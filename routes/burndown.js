@@ -38,10 +38,10 @@ module.exports = function (req, res, next) {
       }
     });
 
-    const burndown = {};
+    const burndown = [];
     Object.entries(changeCount).reduce((count, [date, change]) => {
       count += change;
-      burndown[date] = count;
+      burndown.push({ date, count });
       return count;
     }, 0);
 

@@ -14,7 +14,8 @@
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "knex": "^0.95.9",

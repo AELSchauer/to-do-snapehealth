@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
     .query(
       `SELECT
         tasks.*,
-        users.name,
+        users.name as user_name,
         CASE
           WHEN completed_at is not null THEN true
           ELSE false
