@@ -1,6 +1,6 @@
 module.exports = function (req, res, next) {
   const {
-    query: { title, is_complete, user_id },
+    body: { title, is_complete, user_id },
     params: { id },
   } = req;
 
