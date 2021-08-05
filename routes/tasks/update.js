@@ -7,9 +7,9 @@ module.exports = function (req, res, next) {
   const set = [`updated_at = '${new Date().toISOString()}'`];
   title && set.push(`title = '${title}'`);
   user_id && set.push(`user_id = '${user_id}'`);
-  is_complete === "true" &&
+  is_complete &&
     set.push(`completed_at = '${new Date().toISOString()}'`);
-  is_complete === "false" && set.push(`completed_at = null`);
+  !is_complete && set.push(`completed_at = null`);
 
   client
     .query(

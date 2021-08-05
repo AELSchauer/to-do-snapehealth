@@ -3,12 +3,12 @@ module.exports = function (req, res, next) {
     body: { title, is_complete = false },
     user_id,
   } = req;
-  console.log(req)
+  
   const columns = [
     "title",
     "user_id",
     "created_at",
-    is_complete === "true" && "completed_at",
+    is_complete && "completed_at",
   ]
     .filter((col) => !!col)
     .join(", ");
