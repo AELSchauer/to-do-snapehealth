@@ -12,10 +12,10 @@ module.exports = function (req, res, next) {
         tasks
         INNER JOIN users ON tasks.user_id = users.id
       WHERE
-        user_id = '${req.user_id}'
+        user_id = ${req.user_id}
         AND archived_at is null;`
     )
-    .then(({ rows = [] }) => {
+    .then(({ rows = [] } = {}) => {
       res.setHeader("Content-Type", "application/json");
       res.send(
         JSON.stringify(
