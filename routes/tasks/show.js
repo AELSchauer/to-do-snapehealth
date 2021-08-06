@@ -15,8 +15,8 @@ module.exports = function (req, res, next) {
       WHERE
         user_id = '${req.user_id}' AND tasks.id = '${id}';`
     )
-    .then(({ rows: [record = {}] = [] }) => {
+    .then(({ rows: [{ id, ...record }] = [] } = {}) => {
       res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(record));
+      res.status(201).send(JSON.stringify({ id: parseInt(id), ...record }));
     });
 };

@@ -3,7 +3,7 @@ module.exports = function (req, res, next) {
     body: { title, is_complete = false },
     user_id,
   } = req;
-  
+
   const columns = [
     "title",
     "user_id",
@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
     title,
     user_id,
     new Date().toISOString(),
-    is_complete === "true" && new Date().toISOString(),
+    is_complete && new Date().toISOString(),
   ]
     .filter((val) => !!val)
     .map((val) => `'${val}'`)
@@ -35,9 +35,9 @@ module.exports = function (req, res, next) {
           ELSE false
         END as is_complete;`
     )
-    .then(({ rows: [record] = [] } = {}) => {
+    .then(({ rows: [{ id, ...record }] = [] } = {}) => {
       res.setHeader("Content-Type", "application/json");
-      res.status(201).send(JSON.stringify(record));
+      res.status(201).send(JSON.stringify({ id: parseInt(id), ...record }));
     })
     .catch((err) => {
       res.status(400).send({ error: err.message });

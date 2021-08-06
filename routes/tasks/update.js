@@ -25,9 +25,9 @@ module.exports = function (req, res, next) {
           ELSE false
         END as is_complete;`
     )
-    .then(({ rows: [record] = [] } = {}) => {
+    .then(({ rows: [{ id, ...record }] = [] } = {}) => {
       res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(record));
+      res.status(201).send(JSON.stringify({ id: parseInt(id), ...record }));
     })
     .catch((err) => {
       res.status(400).send({ error: err.message });

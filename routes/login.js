@@ -6,11 +6,12 @@ module.exports = function (req, res, next) {
 
   client
     .query(`SELECT id, name, email FROM users WHERE email = '${email}';`)
-    .then(({ rows: [record = {}] = [] }) => {
+    .then(({ rows: [{id, ...record} = {}] = [] }) => {
       if (record.email === email) {
         res.setHeader("Content-Type", "application/json");
         res.send(
           JSON.stringify({
+            id: parseInt(id),
             ...record,
             token: jwt.sign(record, process.env.SECRET_TOKEN),
           })

@@ -16,6 +16,10 @@ module.exports = function (req, res, next) {
     )
     .then(({ rows = [] }) => {
       res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(rows));
+      res.send(
+        JSON.stringify(
+          rows.map(({ id, ...record }) => ({ id: parseInt(id), ...record }))
+        )
+      );
     });
 };
