@@ -11,7 +11,7 @@ exports.up = function (knex) {
       table.timestamps();
     })
     // Hide this file since it has sensitive data
-    .then(() => knex.seed.run({ specific: "000-seed-users.js" }));
+    // .then(() => knex.seed.run({ specific: "000-seed-users.js" }));
 };
 
 exports.down = function (knex) {

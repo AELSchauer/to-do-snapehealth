@@ -18,7 +18,9 @@ module.exports = function (req, res, next) {
       SET
         ${set.join(",")}
       WHERE
-        id = ${id}
+        user_id = '${req.user_id}'
+        AND id = '${id}'
+        AND archived_at is null
       RETURNING *,
         CASE
           WHEN completed_at is not null THEN true

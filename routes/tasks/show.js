@@ -13,10 +13,13 @@ module.exports = function (req, res, next) {
         tasks
         INNER JOIN users ON tasks.user_id = users.id
       WHERE
-        user_id = '${req.user_id}' AND tasks.id = '${id}';`
+        user_id = '${req.user_id}'
+        AND tasks.id = '${id}'
+        AND archived_at is null;`
     )
-    .then(({ rows: [{ id, ...record }] = [] } = {}) => {
+    .then(({ rows: [{ id, ...record }={}] = [] } = {}) => {
+      if (!id) res.status(404).end();
       res.setHeader("Content-Type", "application/json");
       res.status(201).send(JSON.stringify({ id: parseInt(id), ...record }));
-    });
+    })
 };

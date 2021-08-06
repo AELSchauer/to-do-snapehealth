@@ -62,7 +62,7 @@ describe("POST /tasks", () => {
           format: "plain",
           units: "words",
         }),
-        is_complete: true
+        is_complete: true,
       })
       .then((res) => {
         expect(res.statusCode).to.equal(201);
@@ -105,6 +105,73 @@ describe("POST /tasks", () => {
   it("should return a 401 error if token is invalid", () =>
     request("http://localhost:3000")
       .post("/tasks")
+      .set("Accept", "application/json")
+      .set("Authorization", `Bearer badtoken`)
+      .then((res) => {
+        expect(res.statusCode).to.equal(401);
+      }));
+});
+
+describe("DELETE /tasks", () => {
+  it("should delete a task", () =>
+    request("http://localhost:3000")
+      .post("/tasks")
+      .set("Accept", "application/json")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        title: loremIpsum({
+          count: 5,
+          format: "plain",
+          units: "words",
+        }),
+      })
+      .then(({ body: { id } }) =>
+        Promise.all([
+          id,
+          request("http://localhost:3000")
+            .delete(`/tasks/${id}`)
+            .set("Accept", "application/json")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+              title: loremIpsum({
+                count: 5,
+                format: "plain",
+                units: "words",
+              }),
+            }),
+        ])
+      )
+      .then(([id, res]) => {
+        expect(res.statusCode).to.equal(204);
+        return request("http://localhost:3000")
+          .get(`/tasks/${id}`)
+          .set("Accept", "application/json")
+          .set("Authorization", `Bearer ${token}`);
+      })
+      .then((res) => {
+        expect(res.statusCode).to.equal(404);
+      }));
+
+  it("should return a 204 if task doesn't exist", () =>
+    request("http://localhost:3000")
+      .delete("/tasks/1000")
+      .set("Accept", "application/json")
+      .set("Authorization", `Bearer ${token}`)
+      .then((res) => {
+        expect(res.statusCode).to.equal(204);
+      }));
+
+  it("should return a 401 error if token is missing", () =>
+    request("http://localhost:3000")
+      .delete("/tasks/1")
+      .set("Accept", "application/json")
+      .then((res) => {
+        expect(res.statusCode).to.equal(401);
+      }));
+
+  it("should return a 401 error if token is invalid", () =>
+    request("http://localhost:3000")
+      .delete("/tasks/1")
       .set("Accept", "application/json")
       .set("Authorization", `Bearer badtoken`)
       .then((res) => {

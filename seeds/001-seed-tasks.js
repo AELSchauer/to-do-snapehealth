@@ -13,19 +13,19 @@ exports.seed = async function (knex) {
         }),
         user_id,
         created_at: moment()
-          .subtract(Math.floor(Math.random() * 30), "days")
-          .subtract(Math.floor(Math.random() * 1440), "minutes")
+          .subtract(Math.floor(Math.random() * 30) + 9, "days")
+          .subtract(Math.floor(Math.random() * 82800), "seconds")
           .format(),
       });
     }
     for (let i = 0; i < 10; i++) {
       const created_at = moment()
-        .subtract(Math.floor(Math.random() * 30), "days")
-        .subtract(Math.floor(Math.random() * 1440), "minutes");
+        .subtract(Math.floor(Math.random() * 30) + 9, "days")
+        .subtract(Math.floor(Math.random() * 82800), "seconds");
       const completed_at = moment(created_at)
         .add(Math.floor(Math.random() * 7), "days")
-        .add(Math.floor(Math.random() * 1440), "minutes");
-      
+        .add(Math.floor(Math.random() * 82800), "seconds");
+
       tasks.push({
         title: loremIpsum({
           count: 5,

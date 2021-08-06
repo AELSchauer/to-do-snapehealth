@@ -13,6 +13,7 @@ exports.up = function (knex) {
 
       table.timestamps();
       table.timestamp("completed_at");
+      table.timestamp("archived_at");
     })
     .then(() => knex.seed.run({ specific: "001-seed-tasks.js" }));
 };

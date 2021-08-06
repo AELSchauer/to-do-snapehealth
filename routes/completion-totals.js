@@ -9,6 +9,8 @@ module.exports = function (req, res, next) {
         COUNT(id)
       FROM
         tasks
+      WHERE
+        archived_at is null
       GROUP BY
         is_complete;`
     )
