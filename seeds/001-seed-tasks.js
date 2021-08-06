@@ -3,7 +3,7 @@ const { loremIpsum } = require("lorem-ipsum");
 
 exports.seed = async function (knex) {
   const tasks = [];
-  for (let user_id = 1; user_id < 4; user_id++) {
+  for (let user_id = 1; user_id < 5; user_id++) {
     for (let i = 0; i < 5; i++) {
       tasks.push({
         title: loremIpsum({

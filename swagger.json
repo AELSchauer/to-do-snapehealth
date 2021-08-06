@@ -60,14 +60,6 @@
                       "uniqueItems": true,
                       "format": "email"
                     },
-                    "created_at": {
-                      "type": "string",
-                      "format": "date-time"
-                    },
-                    "updated_at": {
-                      "type": "string",
-                      "format": "date-time"
-                    },
                     "token": {
                       "type": "string",
                       "format": "(^[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*$)"
@@ -283,11 +275,6 @@
       "get": {
         "tags": ["Calculations"],
         "summary": "Count of tasks that are complete vs incomplete",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -317,11 +304,6 @@
       "get": {
         "tags": ["Calculations"],
         "summary": "Get the totals for a burndown chart",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
